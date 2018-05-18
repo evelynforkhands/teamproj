@@ -62,14 +62,7 @@ namespace CustomControl
 
         private void Cell_Click(object sender, RoutedEventArgs e)
         {
-            if (State)
-            {
-                State = false;
-            }
-            else
-            {
-                State = true;
-            }
+            State = !State;
         }
     }
 }
