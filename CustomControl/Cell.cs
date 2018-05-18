@@ -46,9 +46,30 @@ namespace CustomControl
     /// </summary>
     public class Cell : Button
     {
-        static Cell()
+        public bool State
         {
+            get { return (bool)GetValue(StateProperty); }
+            set { SetValue(StateProperty, value); }
+        }
+
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(bool), typeof(Cell));
+
+        public Cell()
+        {
+            Click += Cell_Click;
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
+        }
+
+        private void Cell_Click(object sender, RoutedEventArgs e)
+        {
+            if (State)
+            {
+                State = false;
+            }
+            else
+            {
+                State = true;
+            }
         }
     }
 }
