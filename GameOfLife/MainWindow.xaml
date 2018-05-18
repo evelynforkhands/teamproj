@@ -6,8 +6,15 @@
         xmlns:MyNamespace="clr-namespace:CustomControl;assembly=CustomControl"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <MyNamespace:Cell Height="20" Width="20"/>
+        Title="MainWindow" Height="350" Width="525"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="NoResize" Activated="Window_Activated" WindowStyle="SingleBorderWindow">
+    <Grid Name="mainWindowGrid" ShowGridLines="True">
+        <Grid Name="GameGrid">
+            <MyNamespace:Cell Height="20" Width="20" Click="Cell_Click"></MyNamespace:Cell>
+        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
     </Grid>
 </Window>
