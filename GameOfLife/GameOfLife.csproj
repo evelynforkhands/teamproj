@@ -93,5 +93,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomControl\CustomControl.csproj">
+      <Project>{f6c06395-ca93-496b-9f32-afc2061cf68e}</Project>
+      <Name>CustomControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameOfLife.Classes\GameOfLife.Classes.csproj">
+      <Project>{479f47dd-563a-4bbd-9708-7767d97a6d79}</Project>
+      <Name>GameOfLife.Classes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

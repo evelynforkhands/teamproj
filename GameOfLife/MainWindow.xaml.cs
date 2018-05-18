@@ -24,5 +24,15 @@ namespace GameOfLife
         {
             InitializeComponent();
         }
+
+        private void Cell_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("something happened");
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            mainWindowGrid.ColumnDefinitions[0].Width = new GridLength(ActualHeight);
+        }
     }
 }
