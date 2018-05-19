@@ -54,10 +54,14 @@ namespace CustomControl
 
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(bool), typeof(Cell));
 
+        static Cell()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
+        }
+
         public Cell()
         {
             Click += Cell_Click;
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell))); // Runtime error (to be fixed) happening probably due to calling Cell's constructor instead of declaring it in XAML (comment this line to continue debugging)
             Height = 4;
             Width = 4;
         }
