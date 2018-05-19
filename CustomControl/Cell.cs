@@ -57,7 +57,9 @@ namespace CustomControl
         public Cell()
         {
             Click += Cell_Click;
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell))); // Runtime error (to be fixed) happening probably due to calling Cell's constructor instead of declaring it in XAML (comment this line to continue debugging)
+            Height = 4;
+            Width = 4;
         }
 
         private void Cell_Click(object sender, RoutedEventArgs e)
