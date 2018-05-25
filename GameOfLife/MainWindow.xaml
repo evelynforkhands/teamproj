@@ -7,15 +7,14 @@
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="NoResize" Activated="Window_Activated" WindowStyle="SingleBorderWindow">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="NoResize" Activated="Window_Activated" WindowStyle="None">
     <Grid Name="mainWindowGrid" ShowGridLines="True">
         <Grid Name="gameGrid">
-            <!--<MyNamespace:Cell Height="20" Width="20" Click="Cell_Click"></MyNamespace:Cell>-->
         </Grid>
         <StackPanel Grid.Column="1">
             <DockPanel>
                 <Label>Speed</Label>
-                <Slider Name="sliderSpeed" Margin="5" Value="300" Minimum="0.1" Maximum="1000" ValueChanged="sliderSpeed_ValueChanged"/>
+                <Slider Name="sliderSpeed" Margin="5" Value="300" Minimum="0" Maximum="999.9" ValueChanged="sliderSpeed_ValueChanged"/>
             </DockPanel>
             <Button Width="100" Height="20" Margin="5" Click="ButtonStart_Click">Start</Button>
             <Button Width="100" Height="20" Margin="5" Click="ButtonStop_Click">Stop</Button>

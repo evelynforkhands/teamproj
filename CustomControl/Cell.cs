@@ -62,8 +62,8 @@ namespace CustomControl
         public Cell()
         {
             Click += Cell_Click;
-            Height = 4;
-            Width = 4;
+            Height = 11.5;
+            Width = 11.5;
         }
 
         private void Cell_Click(object sender, RoutedEventArgs e)

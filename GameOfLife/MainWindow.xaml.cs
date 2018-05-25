@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CustomControl;
+using GameOfLife.Classes;
 using GameOfLife.Classes.Helpers;
 
 namespace GameOfLife
@@ -26,37 +27,30 @@ namespace GameOfLife
         const int x = 100; // Not actually constants
         const int y = 100; // Have to be calculated separately
 
-        private Calculation calculation = new Calculation();
-
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
-        Cell[,] cells = new Cell[x, y];
+        private Generation _gen = new Generation(x,y);
+
+        Cell[,] cells = new Cell[x,y];
 
         public MainWindow()
         {
             InitializeComponent();
-            calculation.CellsToBeChanged += ChangeCells;
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(sliderSpeed.Value);
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
             dispatcherTimer.Tick += Calculate;
         }
 
-        private void Cell_Click(object sender, RoutedEventArgs e)
+        private void ChangeCells(List<Tuple<int, int>> coordinates)
         {
-            MessageBox.Show("something happened");
-        }
-
-
-        private void Calculate(object sender, EventArgs e)
-        {
-            calculation.CalculateNextGeneration();
-        }
-
-        private void ChangeCells(List<Tuple<int,int>> coordinates)
-        {
-            foreach (var coordinateTuple in coordinates)
+            foreach (var coordinatePair in coordinates)
             {
-                cells[coordinateTuple.Item1, coordinateTuple.Item2].State = !cells[coordinateTuple.Item1, coordinateTuple.Item2].State;
+                cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
             }
+        }
+
+        private async void Calculate(object sender, EventArgs e)
+        {
+            ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
         }
 
         private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

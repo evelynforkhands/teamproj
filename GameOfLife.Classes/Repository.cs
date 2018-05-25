@@ -9,7 +9,5 @@ namespace GameOfLife.Classes
     class Repository
     {
         public List<Pattern> Patterns { get; set; }
-        public bool[,] CurrentGeneration { get; set; }
-        public bool[,] FutureGeneration { get; set; }
     }
 }
