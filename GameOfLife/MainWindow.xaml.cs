@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using CustomControl;
+using GameOfLife.Classes;
+using GameOfLife.Classes.Helpers;
 
 namespace GameOfLife
 {
@@ -20,19 +24,66 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
+        const int x = 100; // Not actually constants
+        const int y = 100; // Have to be calculated separately
+
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
+        private Generation _gen = new Generation(x,y);
+
+        Cell[,] cells = new Cell[x,y];
+
         public MainWindow()
         {
             InitializeComponent();
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
+            dispatcherTimer.Tick += Calculate;
         }
 
-        private void Cell_Click(object sender, RoutedEventArgs e)
+        private void ChangeCells(List<Tuple<int, int>> coordinates)
         {
-
+            foreach (var coordinatePair in coordinates)
+            {
+                cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
+            }
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private async void Calculate(object sender, EventArgs e)
+        {
+            ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
+        }
+
+        private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(sliderSpeed.Value);
+        }
+
+        private void Window_Activated(object sender, EventArgs e) // The 'Activated' event usage is bad due to the fact that it can be invoked more than once thus overriding existing cells with dead ones
         {
             mainWindowGrid.ColumnDefinitions[0].Width = new GridLength(ActualHeight);
+            
+            for (int i = 0; i < x; i++)
+            {
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                gameGrid.RowDefinitions.Add(new RowDefinition());
+                for (int j = 0; j < y; j++)
+                {
+                    cells[i, j] = new Cell();
+                    gameGrid.Children.Add(cells[i, j]);
+                    Grid.SetColumn(cells[i, j], i);
+                    Grid.SetRow(cells[i, j], j);
+                }
+            }
+        }
+
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Start();
+        }
+
+        private void ButtonStop_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Stop();
         }
     }
 }

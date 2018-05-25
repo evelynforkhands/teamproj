@@ -54,10 +54,16 @@ namespace CustomControl
 
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(bool), typeof(Cell));
 
+        static Cell()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
+        }
+
         public Cell()
         {
             Click += Cell_Click;
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
+            Height = 11.5;
+            Width = 11.5;
         }
 
         private void Cell_Click(object sender, RoutedEventArgs e)

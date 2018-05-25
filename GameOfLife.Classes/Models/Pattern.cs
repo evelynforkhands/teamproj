@@ -8,6 +8,6 @@ namespace GameOfLife.Classes
 {
     class Pattern
     {
-        public List<Tuple<int,int>> ExistingCellsCoordinates { get; set; }
+        public List<Tuple<int,int>> CellsCoordinates { get; set; }
     }
 }

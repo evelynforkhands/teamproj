@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.Classes
+namespace GameOfLife.Classes.Helpers
 {
-    class Repository
+    public class Calculation
     {
-        public List<Pattern> Patterns { get; set; }
+        // ???
     }
 }
