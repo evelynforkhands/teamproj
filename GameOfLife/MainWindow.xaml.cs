@@ -33,6 +33,8 @@ namespace GameOfLife
 
         Cell[,] cells = new Cell[x,y];
 
+        private bool fieldSet = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,9 +42,9 @@ namespace GameOfLife
             dispatcherTimer.Tick += Calculate;
         }
 
-        private void ChangeCells(List<Tuple<int, int>> coordinates)
+        private void ChangeCells(List<Tuple<int, int>> coordinatesToChange)
         {
-            foreach (var coordinatePair in coordinates)
+            foreach (var coordinatePair in coordinatesToChange)
             {
                 cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
             }
@@ -58,21 +60,25 @@ namespace GameOfLife
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(sliderSpeed.Value);
         }
 
-        private void Window_Activated(object sender, EventArgs e) // The 'Activated' event usage is bad due to the fact that it can be invoked more than once thus overriding existing cells with dead ones
+        private void Window_Activated(object sender, EventArgs e)
         {
-            mainWindowGrid.ColumnDefinitions[0].Width = new GridLength(ActualHeight);
-            
-            for (int i = 0; i < x; i++)
+            if (!fieldSet)
             {
-                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                gameGrid.RowDefinitions.Add(new RowDefinition());
-                for (int j = 0; j < y; j++)
+                mainWindowGrid.ColumnDefinitions[0].Width = new GridLength(ActualHeight);
+
+                for (int i = 0; i < x; i++)
                 {
-                    cells[i, j] = new Cell();
-                    gameGrid.Children.Add(cells[i, j]);
-                    Grid.SetColumn(cells[i, j], i);
-                    Grid.SetRow(cells[i, j], j);
+                    gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                    gameGrid.RowDefinitions.Add(new RowDefinition());
+                    for (int j = 0; j < y; j++)
+                    {
+                        cells[i, j] = new Cell();
+                        gameGrid.Children.Add(cells[i, j]);
+                        Grid.SetColumn(cells[i, j], i);
+                        Grid.SetRow(cells[i, j], j);
+                    }
                 }
+                fieldSet = true;
             }
         }
 
