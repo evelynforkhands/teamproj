@@ -24,14 +24,14 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-        const int x = 100; // Not actually constants
-        const int y = 100; // Have to be calculated separately
+        static int x; 
+        static int y; 
 
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
-        private Generation _gen = new Generation(x,y);
+        private Generation _gen;
 
-        Cell[,] cells = new Cell[x,y];
+        Cell[,] cells;
 
         private bool fieldSet = false;
 
@@ -64,12 +64,23 @@ namespace GameOfLife
         {
             if (!fieldSet)
             {
-                mainWindowGrid.ColumnDefinitions[0].Width = new GridLength(ActualHeight);
+                x = (int)gameGrid.ActualWidth/12;
+                y = (int)gameGrid.ActualHeight/12;
+                _gen = new Generation(x, y);
+                cells = new Cell[x, y];
 
                 for (int i = 0; i < x; i++)
                 {
                     gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                }
+
+                for (int j = 0; j < y; j++)
+                {
                     gameGrid.RowDefinitions.Add(new RowDefinition());
+                }
+
+                for (int i = 0; i < x; i++)
+                {
                     for (int j = 0; j < y; j++)
                     {
                         cells[i, j] = new Cell();
@@ -78,6 +89,7 @@ namespace GameOfLife
                         Grid.SetRow(cells[i, j], j);
                     }
                 }
+
                 fieldSet = true;
             }
         }
