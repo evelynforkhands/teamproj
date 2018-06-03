@@ -78,5 +78,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameOfLife.Classes\GameOfLife.Classes.csproj">
+      <Project>{479F47DD-563A-4BBD-9708-7767D97A6D79}</Project>
+      <Name>GameOfLife.Classes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

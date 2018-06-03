@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameOfLife.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,7 +53,15 @@ namespace CustomControl
             set { SetValue(StateProperty, value); }
         }
 
+        public Location Location
+        {
+            get { return (Location)GetValue(LocationProperty); }
+            set { SetValue(LocationProperty, value); }
+        }
+
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(bool), typeof(Cell));
+
+        public static readonly DependencyProperty LocationProperty = DependencyProperty.Register("Location", typeof(Location), typeof(Cell));
 
         static Cell()
         {
