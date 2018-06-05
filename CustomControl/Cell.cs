@@ -47,9 +47,9 @@ namespace CustomControl
     /// </summary>
     public class Cell : Button
     {
-        public bool State
+        public int State
         {
-            get { return (bool)GetValue(StateProperty); }
+            get { return (int)GetValue(StateProperty); }
             set { SetValue(StateProperty, value); }
         }
 
@@ -59,7 +59,7 @@ namespace CustomControl
             set { SetValue(LocationProperty, value); }
         }
 
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(bool), typeof(Cell));
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(int), typeof(Cell));
 
         public static readonly DependencyProperty LocationProperty = DependencyProperty.Register("Location", typeof(Location), typeof(Cell));
 
@@ -77,7 +77,14 @@ namespace CustomControl
 
         private void Cell_Click(object sender, RoutedEventArgs e)
         {
-            State = !State;
+            if (State == 0)
+            {
+                State = 1;
+            }
+            else
+            {
+                State = 0;
+            }
         }
     }
 }

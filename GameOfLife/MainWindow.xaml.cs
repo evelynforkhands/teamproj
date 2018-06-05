@@ -46,7 +46,7 @@ namespace GameOfLife
         {
             foreach (var coordinatePair in coordinatesToChange)
             {
-                cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
+                // cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
             }
         }
 
