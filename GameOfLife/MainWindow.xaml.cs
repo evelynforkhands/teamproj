@@ -67,12 +67,17 @@ namespace GameOfLife
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
         }
 
-        private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private async void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
+            await Task.Factory.StartNew(ChangeDispatcherTimerInterval);
         }
 
-    private void Window_Activated(object sender, EventArgs e)
+        private void ChangeDispatcherTimerInterval()
+        {
+            Dispatcher.Invoke(() => dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value));
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
         {
             if (!fieldSet)
             {
@@ -136,11 +141,15 @@ namespace GameOfLife
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Start();
+            startButton.IsEnabled = false;
+            stopButton.IsEnabled = true;
         }
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Stop();
+            startButton.IsEnabled = true;
+            stopButton.IsEnabled = false;
         }
     }
 }

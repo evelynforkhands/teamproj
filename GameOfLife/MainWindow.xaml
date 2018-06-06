@@ -14,8 +14,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="1">
                 <Label>Speed</Label>
                 <Slider Name="sliderSpeed" Width="230" Margin="5" Value="300" Minimum="0" Maximum="999.9" ValueChanged="sliderSpeed_ValueChanged"/>
-            <Button VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStart_Click">Start</Button>
-            <Button VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStop_Click">Stop</Button>
+            <Button Name="startButton"  VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStart_Click">Start</Button>
+            <Button Name="stopButton"  VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStop_Click" IsEnabled="False">Stop</Button>
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition/>
