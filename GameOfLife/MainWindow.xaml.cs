@@ -24,8 +24,7 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-        static int x; 
-        static int y; 
+
 
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
@@ -57,31 +56,31 @@ namespace GameOfLife
 
         private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(sliderSpeed.Value);
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
             if (!fieldSet)
             {
-                x = (int)gameGrid.ActualWidth/12;
-                y = (int)gameGrid.ActualHeight/12;
-                _gen = new Generation(x, y);
-                cells = new Cell[x, y];
+                Factory.x = (int)gameGrid.ActualWidth/12 - 1;
+                Factory.y = (int)gameGrid.ActualHeight/12 - 1;
+                _gen = Factory.Instance.GetGeneration();
+                cells = new Cell[Factory.x + 1, Factory.y + 1];
 
-                for (int i = 0; i < x; i++)
+                for (int i = 0; i < Factory.x; i++)
                 {
                     gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
                 }
 
-                for (int j = 0; j < y; j++)
+                for (int j = 0; j < Factory.y; j++)
                 {
                     gameGrid.RowDefinitions.Add(new RowDefinition());
                 }
 
-                for (int i = 0; i < x; i++)
+                for (int i = 0; i < Factory.x; i++)
                 {
-                    for (int j = 0; j < y; j++)
+                    for (int j = 0; j < Factory.y; j++)
                     {
                         cells[i, j] = new Cell();
                         gameGrid.Children.Add(cells[i, j]);
@@ -89,7 +88,6 @@ namespace GameOfLife
                         Grid.SetRow(cells[i, j], j);
                     }
                 }
-
                 fieldSet = true;
             }
         }

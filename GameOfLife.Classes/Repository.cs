@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Classes
 {
-    class Repository
+    public class Repository
     {
         public List<Pattern> Patterns { get; set; }
     }

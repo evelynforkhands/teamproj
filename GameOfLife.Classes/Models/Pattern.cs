@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Classes
 {
-    class Pattern
+    public class Pattern
     {
         public List<Tuple<int,int>> CellsCoordinates { get; set; }
     }

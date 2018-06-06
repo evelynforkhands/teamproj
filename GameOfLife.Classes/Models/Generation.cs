@@ -9,11 +9,12 @@ namespace GameOfLife.Classes
 {
     public class Generation
     {
-        public bool[,] Field { get; set; }
+
+        public int[,] Field { get; set; }
 
         public Generation(int numberOfColumns, int numberOfRows)
         {
-            Field = new bool[numberOfColumns, numberOfRows];
+            Field = new int[numberOfColumns, numberOfRows];
         }
 
         public List<Tuple<int, int>> Evolve()
