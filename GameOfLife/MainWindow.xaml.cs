@@ -67,12 +67,7 @@ namespace GameOfLife
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
         }
 
-        private async void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            await Task.Factory.StartNew(ChangeDispatcherTimerInterval);
-        }
-
-        private void ChangeDispatcherTimerInterval()
+        private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Dispatcher.Invoke(() => dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value));
         }
