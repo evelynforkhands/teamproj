@@ -24,8 +24,9 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
+        private int x;
+        private int y;
+        
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         private Generation _gen;
@@ -49,6 +50,14 @@ namespace GameOfLife
             }
         }
 
+        private void SetNewCell(int i, int j, Location location)
+        {
+            cells[i, j] = new Cell() { Location = location };
+            gameGrid.Children.Add(cells[i, j]);
+            Grid.SetColumn(cells[i, j], i);
+            Grid.SetRow(cells[i, j], j);
+        }
+
         private async void Calculate(object sender, EventArgs e)
         {
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
@@ -63,31 +72,45 @@ namespace GameOfLife
         {
             if (!fieldSet)
             {
-                Factory.x = (int)gameGrid.ActualWidth/12 - 1;
-                Factory.y = (int)gameGrid.ActualHeight/12 - 1;
+                x = Factory.x = (int)gameGrid.ActualWidth / 12 - 1;
+                y = Factory.y = (int)gameGrid.ActualHeight / 12 - 1;
+                
                 _gen = Factory.Instance.GetGeneration();
-                cells = new Cell[Factory.x + 1, Factory.y + 1];
+                cells = new Cell[x + 1, y + 1];
 
-                for (int i = 0; i < Factory.x; i++)
+                for (int i = 0; i < x + 1; i++)
                 {
                     gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
                 }
 
-                for (int j = 0; j < Factory.y; j++)
+                for (int j = 0; j < y + 1; j++)
                 {
                     gameGrid.RowDefinitions.Add(new RowDefinition());
                 }
 
-                for (int i = 0; i < Factory.x; i++)
+                SetNewCell(0, 0, Location.TopLeft);// setting the topLeft cell
+                SetNewCell(0, y, Location.TopRight);//setting the topRight cell
+
+                for (int j_topBottomRow = 1; j_topBottomRow < y; j_topBottomRow++)// setting the top & bottom row
                 {
-                    for (int j = 0; j < Factory.y; j++)
+                    SetNewCell(0, j_topBottomRow, Location.Top);
+                    SetNewCell(x, j_topBottomRow, Location.Bottom);
+                }
+
+                for (int i_center = 0; i_center < x ; i_center++)// cetting center, left & right columns
+                {
+                    SetNewCell(i_center, 0, Location.Left);
+                    SetNewCell(i_center, y, Location.Right);
+
+                    for (int j_center = 0; j_center < y ; j_center++)// setting the Center cells
                     {
-                        cells[i, j] = new Cell();
-                        gameGrid.Children.Add(cells[i, j]);
-                        Grid.SetColumn(cells[i, j], i);
-                        Grid.SetRow(cells[i, j], j);
+                        SetNewCell(i_center, j_center, Location.Center);
                     }
                 }
+
+                SetNewCell(x, 0, Location.BottomLeft);// setting the bottomLeft cell
+                SetNewCell(x, y, Location.BottomRight);//  setting the bottomRight cell
+
                 fieldSet = true;
             }
         }
