@@ -59,6 +59,10 @@ namespace CustomControl
             set { SetValue(LocationProperty, value); }
         }
 
+        public int XCoordinate { get; set; }
+
+        public int YCoordinate { get; set; }
+
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(int), typeof(Cell));
 
         public static readonly DependencyProperty LocationProperty = DependencyProperty.Register("Location", typeof(Location), typeof(Cell));
@@ -68,11 +72,13 @@ namespace CustomControl
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Cell), new FrameworkPropertyMetadata(typeof(Cell)));
         }
 
-        public Cell()
+        public Cell(int xCoordinate, int yCoordinate)
         {
             Click += Cell_Click;
             Height = 12;
             Width = 12;
+            XCoordinate = xCoordinate;
+            YCoordinate = yCoordinate;
         }
 
         private void Cell_Click(object sender, RoutedEventArgs e)

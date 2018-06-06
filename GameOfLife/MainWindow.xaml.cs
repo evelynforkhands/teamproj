@@ -54,7 +54,8 @@ namespace GameOfLife
 
         private void SetNewCell(int i, int j, Location location)
         {
-            cells[i, j] = new Cell();
+            cells[i, j] = new Cell(i, j);
+            cells[i, j].Click += Cell_Click;
             _gen.Reachability[i,j] = location;
             gameGrid.Children.Add(cells[i, j]);
             Grid.SetColumn(cells[i, j], i);
@@ -116,6 +117,19 @@ namespace GameOfLife
                 SetNewCell(x, y, Location.BottomRight);//  setting the bottomRight cell
 
                 fieldSet = true;
+            }
+        }
+
+        private void Cell_Click(object sender, RoutedEventArgs e)
+        {
+            Cell currentCell = sender as Cell;
+            if (_gen.Field[currentCell.XCoordinate, currentCell.YCoordinate] == 0)
+            {
+                _gen.Field[currentCell.XCoordinate, currentCell.YCoordinate] = 1;
+            }
+            else
+            {
+                _gen.Field[currentCell.XCoordinate, currentCell.YCoordinate] = 0;
             }
         }
 
