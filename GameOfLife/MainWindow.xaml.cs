@@ -38,7 +38,7 @@ namespace GameOfLife
         public MainWindow()
         {
             InitializeComponent();
-            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500 - sliderSpeed.Value);
             dispatcherTimer.Tick += Calculate;
         }
 
@@ -69,7 +69,7 @@ namespace GameOfLife
 
         private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Dispatcher.Invoke(() => dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value));
+            Dispatcher.Invoke(() => dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500 - sliderSpeed.Value));
         }
 
         private void Window_Activated(object sender, EventArgs e)

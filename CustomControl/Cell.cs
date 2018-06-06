@@ -53,19 +53,11 @@ namespace CustomControl
             set { SetValue(StateProperty, value); }
         }
 
-        public Location Location
-        {
-            get { return (Location)GetValue(LocationProperty); }
-            set { SetValue(LocationProperty, value); }
-        }
-
         public int XCoordinate { get; set; }
 
         public int YCoordinate { get; set; }
 
         public static readonly DependencyProperty StateProperty = DependencyProperty.Register("State", typeof(int), typeof(Cell));
-
-        public static readonly DependencyProperty LocationProperty = DependencyProperty.Register("Location", typeof(Location), typeof(Cell));
 
         static Cell()
         {
