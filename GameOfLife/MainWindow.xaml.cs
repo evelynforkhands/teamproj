@@ -97,7 +97,7 @@ namespace GameOfLife
                     SetNewCell(x, j_topBottomRow, Location.Bottom);
                 }
 
-                for (int i_center = 0; i_center < x ; i_center++)// cetting center, left & right columns
+                for (int i_center = 1; i_center < x ; i_center++)// cetting center, left & right columns
                 {
                     SetNewCell(i_center, 0, Location.Left);
                     SetNewCell(i_center, y, Location.Right);
