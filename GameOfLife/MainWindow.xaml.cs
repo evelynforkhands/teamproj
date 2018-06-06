@@ -46,13 +46,16 @@ namespace GameOfLife
         {
             foreach (var coordinatePair in coordinatesToChange)
             {
-                // cells[coordinatePair.Item1, coordinatePair.Item2].State = !cells[coordinatePair.Item1, coordinatePair.Item2].State;
+                if (cells[coordinatePair.Item1, coordinatePair.Item2].State == 1)
+                    cells[coordinatePair.Item1, coordinatePair.Item2].State = 0;
+                else cells[coordinatePair.Item1, coordinatePair.Item2].State = 1;
             }
         }
 
         private void SetNewCell(int i, int j, Location location)
         {
-            cells[i, j] = new Cell() { Location = location };
+            cells[i, j] = new Cell();
+            _gen.Reachability[i,j] = location;
             gameGrid.Children.Add(cells[i, j]);
             Grid.SetColumn(cells[i, j], i);
             Grid.SetRow(cells[i, j], j);
@@ -68,12 +71,13 @@ namespace GameOfLife
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - sliderSpeed.Value);
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+    private void Window_Activated(object sender, EventArgs e)
         {
             if (!fieldSet)
             {
                 x = Factory.x = (int)gameGrid.ActualWidth / 12 - 1;
                 y = Factory.y = (int)gameGrid.ActualHeight / 12 - 1;
+                
                 
                 _gen = Factory.Instance.GetGeneration();
                 cells = new Cell[x + 1, y + 1];
@@ -102,7 +106,7 @@ namespace GameOfLife
                     SetNewCell(i_center, 0, Location.Left);
                     SetNewCell(i_center, y, Location.Right);
 
-                    for (int j_center = 0; j_center < y ; j_center++)// setting the Center cells
+                    for (int j_center = 1; j_center < y ; j_center++)// setting the Center cells
                     {
                         SetNewCell(i_center, j_center, Location.Center);
                     }

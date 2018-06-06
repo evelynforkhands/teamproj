@@ -8,19 +8,20 @@ namespace GameOfLife.Classes.Helpers
 {
     public class Calculation
     {
-        private Exception exception = new Exception("👎");
+
+        private static Exception exception = new Exception("👎");
         
-        public int GetSum(Location reachability, int i, int j)
+        public static int GetSum(Location reachability, int i, int j)
         {
             return GetItself(i, j) + GetRight(reachability, i, j) + GetTopRight(reachability, i, j) + GetTop(reachability, i, j) + GetTopLeft(reachability, i, j) + GetLeft(reachability, i, j) + GetBottomLeft(reachability, i, j) + GetBottom(reachability, i, j) + GetBottomRight(reachability, i, j);
         }
 
-        private int GetItself(int i, int j)// 1
+        private static int GetItself(int i, int j)// 1
         {
             return Factory.Instance.GetGeneration().Field[i, j];
         }
 
-        private int GetRight(Location reachability, int i, int j)// 2
+        private static int GetRight(Location reachability, int i, int j)// 2
         {
             switch (reachability)
             {
@@ -42,7 +43,7 @@ namespace GameOfLife.Classes.Helpers
 
         }
 
-        private int GetBottomRight(Location reachability, int i, int j)// 3
+        private static int GetBottomRight(Location reachability, int i, int j)// 3
         {
             switch(reachability)
             {
@@ -64,7 +65,7 @@ namespace GameOfLife.Classes.Helpers
             }
         }
 
-        private int GetBottom(Location reachability, int i, int j)// 4
+        private static int GetBottom(Location reachability, int i, int j)// 4
         {
             switch(reachability)
             {
@@ -85,7 +86,7 @@ namespace GameOfLife.Classes.Helpers
             
         }
 
-        private int GetBottomLeft(Location reachability, int i, int j)// 5
+        private static int GetBottomLeft(Location reachability, int i, int j)// 5
         {
             switch(reachability)
             {
@@ -108,7 +109,7 @@ namespace GameOfLife.Classes.Helpers
             
         }
 
-        private int GetLeft(Location reachability, int i, int j)// 6
+        private static int GetLeft(Location reachability, int i, int j)// 6
         {
             switch (reachability)
             {
@@ -128,7 +129,7 @@ namespace GameOfLife.Classes.Helpers
             }
         }
 
-        private int GetTopLeft(Location reachability, int i, int j)// 7 
+        private static int GetTopLeft(Location reachability, int i, int j)// 7 
         {
             switch(reachability)
             {
@@ -136,12 +137,12 @@ namespace GameOfLife.Classes.Helpers
                 case Location.Right:
                 case Location.BottomRight:
                 case Location.Bottom:
-                    return Factory.Instance.GetGeneration().Field[i - 1, Factory.y];
+                    return Factory.Instance.GetGeneration().Field[i - 1, j - 1];
                 case Location.BottomLeft:
                 case Location.Left:
                     return Factory.Instance.GetGeneration().Field[i - 1, Factory.y];
                 case Location.TopLeft:
-                    return Factory.Instance.GetGeneration().Field[i - 1, j - 1];
+                    return Factory.Instance.GetGeneration().Field[Factory.x, Factory.y];
                 case Location.Top:
                 case Location.TopRight:
                     return Factory.Instance.GetGeneration().Field[Factory.x, j - 1];
@@ -150,7 +151,7 @@ namespace GameOfLife.Classes.Helpers
             }
         }
 
-        private int GetTop(Location reachability, int i, int j)// 8
+        private static int GetTop(Location reachability, int i, int j)// 8
         {
             switch(reachability)
             {
@@ -171,7 +172,7 @@ namespace GameOfLife.Classes.Helpers
             }
         }
 
-        private int GetTopRight(Location reachability, int i, int j)// 9
+        private static int GetTopRight(Location reachability, int i, int j)// 9
         {
             switch(reachability)
             {
