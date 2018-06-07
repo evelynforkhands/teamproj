@@ -137,6 +137,8 @@ namespace GameOfLife
             dispatcherTimer.Start();
             startButton.IsEnabled = false;
             stopButton.IsEnabled = true;
+            clearButton.IsEnabled = false;
+            randomButton.IsEnabled = false;
         }
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
@@ -144,6 +146,31 @@ namespace GameOfLife
             dispatcherTimer.Stop();
             startButton.IsEnabled = true;
             stopButton.IsEnabled = false;
+            clearButton.IsEnabled = true;
+            randomButton.IsEnabled = true;
+        }
+
+        private void RandomButton_Click(object sender, RoutedEventArgs e)
+        {
+            Random random = new Random();
+            for (int i = 0; i < x + 1; i++)
+            {
+                for (int j = 0; j < y + 1; j++)
+                {
+                    cells[i, j].State = _gen.Field[i, j] = random.Next(0,2);
+                }
+            }
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < x + 1; i++)
+            {
+                for (int j = 0; j < y + 1; j++)
+                {
+                    cells[i, j].State = _gen.Field[i,j] = 0;
+                }
+            }
         }
     }
 }
