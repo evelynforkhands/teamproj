@@ -18,6 +18,7 @@
             <Label>Speed</Label>
                 <Slider Name="sliderSpeed" Focusable="False" Width="120" Margin="5" Value="300" Minimum="200" Maximum="350" ValueChanged="sliderSpeed_ValueChanged"/>
             <Button Name="startButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStart_Click">Start</Button>
+            <Button Name="nextButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="NextButton_Click">Next</Button>
             <Button Name="stopButton"  Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStop_Click" IsEnabled="False">Stop</Button>
         </StackPanel>
         <Grid.RowDefinitions>

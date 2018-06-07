@@ -93,7 +93,7 @@ namespace GameOfLife
                 }
 
                 SetNewCell(0, 0, Location.TopLeft);// setting the topLeft cell
-                SetNewCell(0, y, Location.TopRight);//setting the topRight cell
+                SetNewCell(0, y, Location.TopRight);// setting the topRight cell
 
                 for (int j_topBottomRow = 1; j_topBottomRow < y; j_topBottomRow++)// setting the top & bottom row
                 {
@@ -139,6 +139,7 @@ namespace GameOfLife
             stopButton.IsEnabled = true;
             clearButton.IsEnabled = false;
             randomButton.IsEnabled = false;
+            nextButton.IsEnabled = false;
         }
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
@@ -148,6 +149,7 @@ namespace GameOfLife
             stopButton.IsEnabled = false;
             clearButton.IsEnabled = true;
             randomButton.IsEnabled = true;
+            nextButton.IsEnabled = true;
         }
 
         private void RandomButton_Click(object sender, RoutedEventArgs e)
@@ -171,6 +173,13 @@ namespace GameOfLife
                     cells[i, j].State = _gen.Field[i,j] = 0;
                 }
             }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Stop();
+            Calculate(sender, e);
+            stopButton.IsEnabled = false;
         }
     }
 }
