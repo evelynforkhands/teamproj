@@ -76,8 +76,8 @@ namespace GameOfLife
         {
             if (!fieldSet)
             {
-                x = Factory.x = (int)gameGrid.ActualWidth / 12 - 1;
-                y = Factory.y = (int)gameGrid.ActualHeight / 12 - 1;
+                x = Factory.x = (int)gameGrid.ActualWidth / 13 - 1;
+                y = Factory.y = (int)gameGrid.ActualHeight / 13 - 1;
                 
                 
                 _gen = Factory.Instance.GetGeneration();
