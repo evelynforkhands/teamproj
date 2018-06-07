@@ -79,7 +79,6 @@ namespace GameOfLife
                 x = Factory.x = (int)gameGrid.ActualWidth / 13 - 1;
                 y = Factory.y = (int)gameGrid.ActualHeight / 13 - 1;
                 
-                
                 _gen = Factory.Instance.GetGeneration();
                 cells = new Cell[x + 1, y + 1];
 
