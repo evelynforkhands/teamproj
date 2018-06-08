@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +65,10 @@ namespace GameOfLife
 
         private async void Calculate(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
+            sw.Stop();
         }
 
         private void sliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -152,25 +156,35 @@ namespace GameOfLife
             nextButton.IsEnabled = true;
         }
 
-        private void RandomButton_Click(object sender, RoutedEventArgs e)
+        private async void RandomButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Factory.StartNew(RandomButtonClick);
+        }
+
+        private void RandomButtonClick()
         {
             Random random = new Random();
             for (int i = 0; i < x + 1; i++)
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    cells[i, j].State = _gen.Field[i, j] = random.Next(0,2);
+                    cells[i, j].State = _gen.Field[i, j] = random.Next(0, 2);
                 }
             }
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        private async void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Factory.StartNew(ClearButtonClick);
+        }
+
+        private void ClearButtonClick()
         {
             for (int i = 0; i < x + 1; i++)
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    cells[i, j].State = _gen.Field[i,j] = 0;
+                    cells[i, j].State = _gen.Field[i, j] = 0;
                 }
             }
         }

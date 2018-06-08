@@ -50,7 +50,7 @@ namespace CustomControl
         public int State
         {
             get { return (int)GetValue(StateProperty); }
-            set { SetValue(StateProperty, value); }
+            set { Dispatcher.Invoke(() => SetValue(StateProperty, value)); }
         }
 
         public int XCoordinate { get; set; }
