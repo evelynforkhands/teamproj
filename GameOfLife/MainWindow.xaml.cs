@@ -159,7 +159,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    cells[i, j].State = _gen.Field[i, j] = random.Next(0,2);
+                    cells[i, j].State = _gen.Field[i, j] = random.Next(0,3)%2;
                 }
             }
         }
