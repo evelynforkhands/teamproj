@@ -43,6 +43,7 @@ namespace GameOfLife
             InitializeComponent();
             dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500 - sliderSpeed.Value);
             dispatcherTimer.Tick += Calculate;
+            
         }
 
         private void ChangeCells(List<Tuple<int, int>> coordinatesToChange)
@@ -78,7 +79,7 @@ namespace GameOfLife
             Dispatcher.Invoke(() => dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500 - sliderSpeed.Value));
         }
 
-        private void Window_Activated(object sender, EventArgs e)
+        private async void Window_Activated(object sender, EventArgs e)
         {
             if (!fieldSet)
             {
@@ -120,6 +121,11 @@ namespace GameOfLife
 
                 SetNewCell(x, 0, Location.BottomLeft); // setting the bottomLeft cell
                 SetNewCell(x, y, Location.BottomRight); //  setting the bottomRight cell
+
+                comboBoxPatterns.IsEnabled = false;
+                List<Pattern> patterns = await Task.Factory.StartNew(() => Factory.Instance.GetRepository().Patterns);
+                comboBoxPatterns.ItemsSource = patterns;
+                comboBoxPatterns.IsEnabled = true;
 
                 fieldSet = true;
             }
@@ -165,7 +171,11 @@ namespace GameOfLife
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    cells[i, j].State = _gen.Field[i, j] = random.Next(0, 3) % 2;
+                    int state = random.Next(0, 3) % 2;
+                    if (state != cells[i,j].State)
+                    {
+                        cells[i, j].State = _gen.Field[i, j] = random.Next(0, 3) % 2;
+                    }
                 }
             }
         }
@@ -176,7 +186,10 @@ namespace GameOfLife
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    cells[i, j].State = _gen.Field[i, j] = 0;
+                    if (cells[i,j].State == 1)
+                    {
+                        cells[i, j].State = _gen.Field[i, j] = 0; 
+                    }
                 }
             }
         }

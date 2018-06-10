@@ -6,13 +6,36 @@
         xmlns:MyNamespace="clr-namespace:CustomControl;assembly=CustomControl"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="350" Width="1025"
         WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="NoResize" Activated="Window_Activated" WindowStyle="None">
     <Grid Name="mainWindowGrid">
         <Grid Margin="7" Grid.Row="0" Name="gameGrid">
         </Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="1">
-            <ComboBox Name="comboBoxPatterns" Focusable="False" Width="150" Height="20" Margin="5"/>
+            <Grid>
+                <ComboBox Name="comboBoxPatterns" Focusable="False" Width="150" Height="20" Margin="5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" Margin="0 -2 0 0"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Select pattern" IsHitTestVisible="False" Margin="11 6 0 0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=comboBoxPatterns, Path=SelectedItem}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=comboBoxPatterns, Path=ItemsSource}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
             <Button Name="clearButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ClearButton_Click" IsEnabled="True">Clear</Button>
             <Button Name="randomButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="RandomButton_Click" IsEnabled="True">Randomize</Button>
             <Label>Speed</Label>

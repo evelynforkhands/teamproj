@@ -9,7 +9,7 @@ namespace GameOfLife.Classes
 {
     public class RLEDecoder
     {
-        public static Pattern PatternFits(string patternFilePath, int x, int y)
+        public static Pattern PatternFits(string patternFilePath)
         {
             StreamReader reader = new StreamReader(patternFilePath);
             string infoString = reader.ReadLine(),
@@ -25,13 +25,13 @@ namespace GameOfLife.Classes
             
             int patternXDimention = int.Parse(infoString.Split('=', ',')[1]),
                 patternYDimention = int.Parse(infoString.Split('=', ',')[3]);
-            if ((x > patternXDimention + 10 & y > patternYDimention + 10))
+            if (((Factory.x + 1) > patternXDimention + 10 & (Factory.y + 1) > patternYDimention + 10))
                 return new Pattern()
                 {
                     Fits = true,
                     Name = name,
-                    FielfXOffset = x / 2 - patternXDimention / 2,
-                    FieldYOffset = y / 2 - patternYDimention / 2,
+                    FielfXOffset = (Factory.x + 1) / 2 - patternXDimention / 2,
+                    FieldYOffset = (Factory.y + 1) / 2 - patternYDimention / 2,
                     LivingCells = new List<Tuple<int, int>>()
                 };
             else
