@@ -8,6 +8,10 @@ namespace GameOfLife.Classes
 {
     public class Pattern
     {
-        public List<Tuple<int,int>> CellsCoordinates { get; set; }
+        public string Name { get; set; }
+        public List<Tuple<int,int>> LivingCells { get; set; }
+        public int FielfXOffset { get; set; }
+        public int FieldYOffset { get; set; }
+        public bool Fits { get; set; }
     }
 }

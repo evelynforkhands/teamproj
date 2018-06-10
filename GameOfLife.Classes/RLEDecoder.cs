@@ -9,32 +9,51 @@ namespace GameOfLife.Classes
 {
     public class RLEDecoder
     {
-        public static bool PatternFits(string patternFilePath, int x, int y)
+        public static Pattern PatternFits(string patternFilePath, int x, int y)
         {
             StreamReader reader = new StreamReader(patternFilePath);
-            string infoString = reader.ReadLine();
-            int patternXDimention = int.Parse(infoString.Split('=', ',')[1]),// need to think of a way to avoid doing this again in DecodePattern if a particular pattern fits
-                patternYDimention = int.Parse(infoString.Split('=', ',')[3]);
-            return (x > patternXDimention + 10 & y > patternYDimention + 10);
-        }
-
-        public static int[,] DecodePattern(string patternFilePath)
-        {
-            StreamReader reader = new StreamReader(patternFilePath);
-            string infoString = reader.ReadLine();
-            while(infoString.StartsWith("#"))
+            string infoString = reader.ReadLine(),
+                name = string.Empty;
+            while (infoString.StartsWith("#"))
             {
+                if(infoString.StartsWith("#N"))
+                {
+                    name = infoString.Substring(3);
+                }
                 infoString = reader.ReadLine();
             }
+            
+            int patternXDimention = int.Parse(infoString.Split('=', ',')[1]),
+                patternYDimention = int.Parse(infoString.Split('=', ',')[3]);
+            if ((x > patternXDimention + 10 & y > patternYDimention + 10))
+                return new Pattern()
+                {
+                    Fits = true,
+                    Name = name,
+                    FielfXOffset = x / 2 - patternXDimention / 2,
+                    FieldYOffset = y / 2 - patternYDimention / 2,
+                    LivingCells = new List<Tuple<int, int>>()
+                };
+            else
+                return new Pattern()
+                {
+                    Fits = false
+                };
+        }
 
-            string patternRLE = reader.ReadToEnd(),
+        public static Pattern DecodePattern(string patternFilePath, Pattern pattern)
+        {
+            StreamReader reader = new StreamReader(patternFilePath);
+            string beginString = reader.ReadLine();
+            while(beginString.StartsWith("#"))
+            {
+                beginString = reader.ReadLine();
+            }
+            string patternRLE = String.Concat(beginString,reader.ReadToEnd()),
                 occurrencesCounter = "";
-            int patternXDimension = int.Parse(infoString.Split('=', ',')[1]),
-                patternYDimension = int.Parse(infoString.Split('=', ',')[3]),
-                line = 0,
+                int line = 0,
                 linePosition = 0;
-
-            int[,] pattern = new int[patternYDimension, patternXDimension];
+            //int[,] pattern = new int[patternYDimension, patternXDimension];
 
             foreach (char c in patternRLE)
             {
@@ -73,7 +92,7 @@ namespace GameOfLife.Classes
                     {
                         for (int aliveCells = 0; aliveCells < (String.IsNullOrEmpty(occurrencesCounter) ? 1 : int.Parse(occurrencesCounter)); aliveCells++)
                         {
-                            pattern[line, linePosition] = 1;
+                            pattern.LivingCells.Add(new Tuple<int, int>(line + pattern.FielfXOffset, linePosition + pattern.FieldYOffset));
                             linePosition++;
                         }
                         occurrencesCounter = string.Empty;
