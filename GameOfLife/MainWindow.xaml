@@ -6,8 +6,8 @@
         xmlns:MyNamespace="clr-namespace:CustomControl;assembly=CustomControl"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="1025"
-        WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="NoResize" Activated="Window_Activated" WindowStyle="None">
+        Title="Game of Life" Height="350" Width="1025"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanMinimize" Activated="Window_Activated" WindowStyle="SingleBorderWindow">
     <Grid Name="mainWindowGrid">
         <Grid Margin="7" Grid.Row="0" Name="gameGrid">
         </Grid>

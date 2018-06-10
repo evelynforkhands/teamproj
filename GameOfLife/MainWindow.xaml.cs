@@ -124,6 +124,7 @@ namespace GameOfLife
 
                 comboBoxPatterns.IsEnabled = false;
                 List<Pattern> patterns = await Task.Factory.StartNew(() => Factory.Instance.GetRepository().Patterns);
+                comboBoxPatterns.ItemsSource = null;
                 comboBoxPatterns.ItemsSource = patterns;
                 comboBoxPatterns.IsEnabled = true;
 
@@ -205,15 +206,7 @@ namespace GameOfLife
         {
             if (!(comboBoxPatterns.SelectedItem == null))
             {
-                foreach (var cell in cells)
-                {
-                    if (cell.State == 1)
-                    {
-                        MessageBox.Show("Please make sure the field contains only dead cells!");
-                        comboBoxPatterns.SelectedItem = null;
-                        return;
-                    }
-                }
+                ClearButton_Click(sender,e);
 
                 var currentPattern = comboBoxPatterns.SelectedItem as Pattern;
 
