@@ -172,10 +172,10 @@ namespace GameOfLife
             {
                 for (int j = 0; j < y + 1; j++)
                 {
-                    int state = random.Next(0, 3) % 2;
+                    int state = random.Next(0, 10) / 9;
                     if (state != cells[i,j].State)
                     {
-                        cells[i, j].State = _gen.Field[i, j] = random.Next(0, 3) % 2;
+                        cells[i, j].State = _gen.Field[i, j] = state;
                     }
                 }
             }
