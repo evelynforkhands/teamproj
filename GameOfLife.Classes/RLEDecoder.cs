@@ -49,7 +49,7 @@ namespace GameOfLife.Classes
             {
                 beginString = reader.ReadLine();
             }
-            string patternRLE = String.Concat(beginString,reader.ReadToEnd()),
+            string patternRLE = reader.ReadToEnd(),
                 occurrencesCounter = "";
                 int line = 0,
                 linePosition = 0;
