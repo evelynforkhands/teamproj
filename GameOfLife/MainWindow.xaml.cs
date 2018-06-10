@@ -200,5 +200,32 @@ namespace GameOfLife
             Calculate(sender, e);
             stopButton.IsEnabled = false;
         }
+
+        private async void ComboBoxPatterns_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(comboBoxPatterns.SelectedItem == null))
+            {
+                foreach (var cell in cells)
+                {
+                    if (cell.State == 1)
+                    {
+                        MessageBox.Show("Please make sure the field contains only dead cells!");
+                        comboBoxPatterns.SelectedItem = null;
+                        return;
+                    }
+                }
+
+                var currentPattern = comboBoxPatterns.SelectedItem as Pattern;
+
+                await Task.Factory.StartNew(() => Dispatcher.Invoke(() =>
+                {
+                    ChangeCells(currentPattern.LivingCells);
+                    foreach (var coordinatePair in currentPattern.LivingCells)
+                    {
+                        _gen.Field[coordinatePair.Item1, coordinatePair.Item2] = 1;
+                    }
+                }));
+            }
+        }
     }
 }

@@ -50,7 +50,6 @@
     <Compile Include="RLEDecoder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Patterns\1xtumbler.lif" />
     <None Include="Patterns\acorn.lif" />
     <None Include="Patterns\aircraftcarrier.lif" />
     <None Include="Patterns\barge.lif" />
