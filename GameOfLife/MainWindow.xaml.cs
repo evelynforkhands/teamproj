@@ -36,8 +36,6 @@ namespace GameOfLife
 
         private bool fieldSet = false;
 
-        Stopwatch sw = new Stopwatch();
-
         private object lockObj = new object();
 
         public MainWindow()
@@ -49,7 +47,6 @@ namespace GameOfLife
 
         private void ChangeCells(List<Tuple<int, int>> coordinatesToChange)
         {
-            // sw.Start();
             lock (lockObj)
             {
                 foreach (var coordinatePair in coordinatesToChange)
@@ -59,7 +56,6 @@ namespace GameOfLife
                     else cells[coordinatePair.Item1, coordinatePair.Item2].State = 1;
                 }
             }
-            // sw.Stop();
         }
 
         private void SetNewCell(int i, int j, Location location)
@@ -74,9 +70,7 @@ namespace GameOfLife
 
         private async void Calculate(object sender, EventArgs e)
         {
-            // sw.Start();
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
-            // sw.Stop();
         }
 
         private void SliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -104,28 +98,28 @@ namespace GameOfLife
                     gameGrid.RowDefinitions.Add(new RowDefinition());
                 }
 
-                SetNewCell(0, 0, Location.TopLeft);// setting the topLeft cell
-                SetNewCell(0, y, Location.TopRight);// setting the topRight cell
+                SetNewCell(0, 0, Location.TopLeft); // setting the topLeft cell
+                SetNewCell(0, y, Location.TopRight); // setting the topRight cell
 
-                for (int j_topBottomRow = 1; j_topBottomRow < y; j_topBottomRow++)// setting the top & bottom row
+                for (int j_topBottomRow = 1; j_topBottomRow < y; j_topBottomRow++) // setting the top & bottom row
                 {
                     SetNewCell(0, j_topBottomRow, Location.Top);
                     SetNewCell(x, j_topBottomRow, Location.Bottom);
                 }
 
-                for (int i_center = 1; i_center < x ; i_center++)// cetting center, left & right columns
+                for (int i_center = 1; i_center < x ; i_center++) // cetting center, left & right columns
                 {
                     SetNewCell(i_center, 0, Location.Left);
                     SetNewCell(i_center, y, Location.Right);
 
-                    for (int j_center = 1; j_center < y ; j_center++)// setting the Center cells
+                    for (int j_center = 1; j_center < y ; j_center++) // setting the Center cells
                     {
                         SetNewCell(i_center, j_center, Location.Center);
                     }
                 }
 
-                SetNewCell(x, 0, Location.BottomLeft);// setting the bottomLeft cell
-                SetNewCell(x, y, Location.BottomRight);//  setting the bottomRight cell
+                SetNewCell(x, 0, Location.BottomLeft); // setting the bottomLeft cell
+                SetNewCell(x, y, Location.BottomRight); //  setting the bottomRight cell
 
                 fieldSet = true;
             }
@@ -164,62 +158,34 @@ namespace GameOfLife
             nextButton.IsEnabled = true;
         }
 
-        private async void RandomButton_Click(object sender, RoutedEventArgs e)
+        private void RandomButton_Click(object sender, RoutedEventArgs e)
         {
-            comboBoxPatterns.IsEnabled = false;
-            clearButton.IsEnabled = false;
-            randomButton.IsEnabled = false;
-            startButton.IsEnabled = false;
-            nextButton.IsEnabled = false;
-            await Task.Factory.StartNew(() => 
+            Random random = new Random();
+            for (int i = 0; i < x + 1; i++)
             {
-                Random random = new Random();
-                for (int i = 0; i < x + 1; i++)
+                for (int j = 0; j < y + 1; j++)
                 {
-                    for (int j = 0; j < y + 1; j++)
-                    {
-                        cells[i, j].State = _gen.Field[i, j] = random.Next(0, 3) % 2;
-                    }
+                    cells[i, j].State = _gen.Field[i, j] = random.Next(0, 3) % 2;
                 }
-            });
-            comboBoxPatterns.IsEnabled = true; // Shouldn't we make it possible to set patterns on an empty field only?
-            clearButton.IsEnabled = true;
-            randomButton.IsEnabled = true;
-            startButton.IsEnabled = true;
-            nextButton.IsEnabled = true;
+            }
         }
 
-        private async void ClearButton_Click(object sender, RoutedEventArgs e)
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            comboBoxPatterns.IsEnabled = false;
-            clearButton.IsEnabled = false;
-            randomButton.IsEnabled = false;
-            startButton.IsEnabled = false;
-            nextButton.IsEnabled = false;
-            await Task.Factory.StartNew(() =>
+            for (int i = 0; i < x + 1; i++)
             {
-                for (int i = 0; i < x + 1; i++)
+                for (int j = 0; j < y + 1; j++)
                 {
-                    for (int j = 0; j < y + 1; j++)
-                    {
-                        cells[i, j].State = _gen.Field[i, j] = 0;
-                    }
+                    cells[i, j].State = _gen.Field[i, j] = 0;
                 }
-            });
-            comboBoxPatterns.IsEnabled = true;
-            clearButton.IsEnabled = true;
-            randomButton.IsEnabled = true;
-            startButton.IsEnabled = true;
-            nextButton.IsEnabled = true;
+            }
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            // sw.Restart();
             dispatcherTimer.Stop();
             Calculate(sender, e);
             stopButton.IsEnabled = false;
-            // sw.Stop();
         }
     }
 }
