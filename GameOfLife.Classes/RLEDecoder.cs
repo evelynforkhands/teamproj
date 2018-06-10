@@ -30,7 +30,7 @@ namespace GameOfLife.Classes
                 {
                     Fits = true,
                     Name = name,
-                    FielfXOffset = (Factory.x + 1) / 2 - patternXDimention / 2,
+                    FieldXOffset = (Factory.x + 1) / 2 - patternXDimention / 2,
                     FieldYOffset = (Factory.y + 1) / 2 - patternYDimention / 2,
                     LivingCells = new List<Tuple<int, int>>()
                 };
@@ -92,7 +92,7 @@ namespace GameOfLife.Classes
                     {
                         for (int aliveCells = 0; aliveCells < (String.IsNullOrEmpty(occurrencesCounter) ? 1 : int.Parse(occurrencesCounter)); aliveCells++)
                         {
-                            pattern.LivingCells.Add(new Tuple<int, int>(line + pattern.FielfXOffset, linePosition + pattern.FieldYOffset));
+                            pattern.LivingCells.Add(new Tuple<int, int>(linePosition + pattern.FieldXOffset, line + pattern.FieldYOffset));
                             linePosition++;
                         }
                         occurrencesCounter = string.Empty;

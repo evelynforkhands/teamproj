@@ -10,7 +10,7 @@ namespace GameOfLife.Classes
     {
         public string Name { get; set; }
         public List<Tuple<int,int>> LivingCells { get; set; }
-        public int FielfXOffset { get; set; }
+        public int FieldXOffset { get; set; }
         public int FieldYOffset { get; set; }
         public bool Fits { get; set; }
     }
