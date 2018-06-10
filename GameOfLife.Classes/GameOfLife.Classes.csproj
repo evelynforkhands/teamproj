@@ -50,18 +50,13 @@
     <Compile Include="RLEDecoder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Patterns\acorn.lif" />
     <None Include="Patterns\aircraftcarrier.lif" />
     <None Include="Patterns\barge.lif" />
     <None Include="Patterns\beacon.lif" />
     <None Include="Patterns\beehive.lif" />
     <None Include="Patterns\bheptomino.lif" />
-    <None Include="Patterns\blinker.lif" />
-    <None Include="Patterns\blinkerrotor.lif" />
-    <None Include="Patterns\block.lif" />
     <None Include="Patterns\boat.lif" />
     <None Include="Patterns\bookend.lif" />
-    <None Include="Patterns\bulletheptomino.lif" />
     <None Include="Patterns\bun.lif" />
     <None Include="Patterns\butterfly.lif" />
     <None Include="Patterns\century.lif" />
@@ -70,7 +65,6 @@
     <None Include="Patterns\diehard.lif" />
     <None Include="Patterns\domino.lif" />
     <None Include="Patterns\dove.lif" />
-    <None Include="Patterns\duoplet.lif" />
     <None Include="Patterns\eater1.lif" />
     <None Include="Patterns\eheptomino.lif" />
     <None Include="Patterns\extralongsnake.lif" />
@@ -94,7 +88,6 @@
     <None Include="Patterns\prepulsarpredecessor.lif" />
     <None Include="Patterns\qpentomino.lif" />
     <None Include="Patterns\rpentomino.lif" />
-    <None Include="Patterns\ship.lif" />
     <None Include="Patterns\snake.lif" />
     <None Include="Patterns\spentomino.lif" />
     <None Include="Patterns\stairstephexomino.lif" />
