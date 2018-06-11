@@ -72,7 +72,7 @@ namespace GameOfLife.Classes
                         }
                         else
                         {
-                            while (line < int.Parse(occurrencesCounter))
+                            for(int stringShift = 0; stringShift < int.Parse(occurrencesCounter); stringShift++)
                             {
                                 line++;
                                 linePosition = 0;

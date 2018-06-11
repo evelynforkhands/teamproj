@@ -76,10 +76,12 @@
     <None Include="Patterns\herschelgrandparent.lif" />
     <None Include="Patterns\hook.lif" />
     <None Include="Patterns\loaf.lif" />
+    <None Include="Patterns\loaflipflop.lif" />
     <None Include="Patterns\longbarge.lif" />
     <None Include="Patterns\longhook.lif" />
     <None Include="Patterns\longship.lif" />
     <None Include="Patterns\mango.lif" />
+    <None Include="Patterns\mirage.lif" />
     <None Include="Patterns\multuminparvo.lif" />
     <None Include="Patterns\opentomino.lif" />
     <None Include="Patterns\pond.lif" />
@@ -99,6 +101,7 @@
     <None Include="Patterns\ttetromino.lif" />
     <None Include="Patterns\tub.lif" />
     <None Include="Patterns\tubwithtail.lif" />
+    <None Include="Patterns\vacuumgun.lif" />
     <None Include="Patterns\vpentomino.lif" />
     <None Include="Patterns\wing.lif" />
     <None Include="Patterns\xpentomino.lif" />
