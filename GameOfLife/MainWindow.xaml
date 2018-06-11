@@ -43,6 +43,7 @@
             <Button Name="startButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStart_Click">Start</Button>
             <Button Name="nextButton" Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="NextButton_Click">Next</Button>
             <Button Name="stopButton"  Focusable="False" VerticalAlignment="Top" Width="100" Height="20" Margin="5" Click="ButtonStop_Click" IsEnabled="False">Stop</Button>
+            <TextBlock Name="textBlockGeneration" Width="100" Height="20" Text="Generation: 0" Margin="5 4 0 0"/>
         </StackPanel>
         <Grid.RowDefinitions>
             <RowDefinition/>

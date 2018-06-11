@@ -38,6 +38,8 @@ namespace GameOfLife
 
         private object lockObj = new object();
 
+        private int _generationCounter = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +74,8 @@ namespace GameOfLife
         private async void Calculate(object sender, EventArgs e)
         {
             ChangeCells(await Task.Factory.StartNew(_gen.Evolve));
+            _generationCounter++;
+            textBlockGeneration.Text = $"Generation: {_generationCounter}";
         }
 
         private void SliderSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -167,6 +171,8 @@ namespace GameOfLife
 
         private void RandomButton_Click(object sender, RoutedEventArgs e)
         {
+            _generationCounter = 0;
+            textBlockGeneration.Text = $"Generation: {_generationCounter}";
             Random random = new Random();
             for (int i = 0; i < x + 1; i++)
             {
@@ -183,6 +189,12 @@ namespace GameOfLife
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
+            _generationCounter = 0;
+            textBlockGeneration.Text = $"Generation: {_generationCounter}";
+            if (!(sender is ComboBox))
+            {
+                comboBoxPatterns.SelectedItem = null;
+            }
             for (int i = 0; i < x + 1; i++)
             {
                 for (int j = 0; j < y + 1; j++)
