@@ -26,8 +26,6 @@ namespace GameOfLife.Classes
             /// <summary>
             /// Main algorithm
             /// </summary>
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             List<Tuple<int, int>> coordinatesToChange = new List<Tuple<int, int>>(); // Fill the coordinates to change
             for (int i = 0; i < Factory.x + 1; i++)
             {
@@ -53,7 +51,6 @@ namespace GameOfLife.Classes
                 else
                     Field[pair.Item1, pair.Item2] = 1;
             }
-            sw.Stop();
             return coordinatesToChange;
         }
     }
