@@ -29,8 +29,9 @@ namespace GameOfLife.Classes.Tests
         int x = 9, y = 9;
 
         [TestMethod()]
-        public void EvolveTest()
+        public void Are_There_Any_Cells_With_More_Than_8_Alive_Neighbours()
         {
+            // Arrange
             Location[,] reachability = new Location[,]
             {
                 {Location.TopLeft,Location.Top,Location.Top,Location.Top,Location.Top,Location.Top,Location.Top,Location.Top,Location.Top,Location.TopRight },
@@ -46,6 +47,10 @@ namespace GameOfLife.Classes.Tests
             };
             
             List<Tuple<int,int>> coordinatesToChange = new List<Tuple<int,int>>();
+
+            List<int> sums = new List<int>();
+
+            // Act
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -61,9 +66,11 @@ namespace GameOfLife.Classes.Tests
                         if (field[i, j] == 1)
                             coordinatesToChange.Add(new Tuple<int, int>(i, j));
                     }
-                    Assert.IsFalse(sum > 9);
+                    sums.Add(sum);
                 }
             }
+            // Assert
+            Assert.IsFalse(sums.Any(sum => sum > 9));
         }
 
         private int GetSum(Location reachability, int i, int j)
